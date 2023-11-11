@@ -3,6 +3,7 @@ resources:
   - backend-deployment.yaml
   - mysql.yaml
   - ingress.yaml
+  - frontend-deployment.yaml
 configMapGenerator:
   - name: nginx
     files:
