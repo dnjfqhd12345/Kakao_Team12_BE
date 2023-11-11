@@ -889,7 +889,7 @@ public class BoardControllerTest extends RestDocsConfig {
 
                 //then
                 resultActions.andExpect(jsonPath("$.success").value("true"));
-                resultActions.andExpect(jsonPath("$.response").value("공고글 삭제를 완료하였습니다"));
+                resultActions.andExpect(jsonPath("$.response.message").value("공고글 삭제를 완료하였습니다"));
                 resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
             }
 
