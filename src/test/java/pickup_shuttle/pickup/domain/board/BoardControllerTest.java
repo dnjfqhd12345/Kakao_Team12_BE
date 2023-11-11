@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import pickup_shuttle.pickup.config.ErrorMessage;
-import pickup_shuttle.pickup.domain.RestDocsConfig;
 import pickup_shuttle.pickup.domain.beverage.dto.request.BeverageRq;
 import pickup_shuttle.pickup.domain.board.dto.request.AcceptBoardRq;
 import pickup_shuttle.pickup.domain.board.dto.request.UpdateBoardRq;
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureRestDocs
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class BoardControllerTest extends RestDocsConfig {
+public class BoardControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -78,7 +77,7 @@ public class BoardControllerTest extends RestDocsConfig {
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
             resultActions.andExpect(jsonPath("$.response.pageable.numberOfElements").value(3));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -102,7 +101,7 @@ public class BoardControllerTest extends RestDocsConfig {
 
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -124,7 +123,7 @@ public class BoardControllerTest extends RestDocsConfig {
 
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -149,7 +148,7 @@ public class BoardControllerTest extends RestDocsConfig {
 
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -174,7 +173,7 @@ public class BoardControllerTest extends RestDocsConfig {
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
             resultActions.andExpect(jsonPath("$.response.pageable.numberOfElements").value(0));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
     }
@@ -206,7 +205,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.response.tip").value(2000));
             resultActions.andExpect(jsonPath("$.response.isMatch").value(false));
             resultActions.andExpect(jsonPath("$.response.isRequester").value(false));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test // 공고글 상세 조회 (매칭 후)
@@ -235,7 +234,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.response.isMatch").value(true));
             resultActions.andExpect(jsonPath("$.response.isRequester").value(true));
             resultActions.andExpect(jsonPath("$.response.pickerPhoneNumber").value("010-0000-0000"));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -260,7 +259,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("공고글ID로 공고글을/를 찾을 수 없습니다"));
             resultActions.andExpect(jsonPath("$.error.status").value(404));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
     }
@@ -297,7 +296,7 @@ public class BoardControllerTest extends RestDocsConfig {
             //then
             resultActions.andExpect(jsonPath("$.success").value("true"));
             resultActions.andExpect(jsonPath("$.response.boardId").value("7"));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -331,7 +330,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value(String.format(ErrorMessage.NOTFOUND_FORMAT, "가게명", "가게")));
             resultActions.andExpect(jsonPath("$.error.status").value(404));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -365,7 +364,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("가게" + ErrorMessage.BADREQUEST_SIZE));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -399,7 +398,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("가게" + ErrorMessage.BADREQUEST_BLANK));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -436,7 +435,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_SIZE));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -473,7 +472,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_BLANK));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -508,7 +507,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_EMPTY));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -542,7 +541,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("위치" + ErrorMessage.BADREQUEST_SIZE));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -576,7 +575,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("위치" + ErrorMessage.BADREQUEST_BLANK));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -610,7 +609,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("픽업팁" + ErrorMessage.BADREQUEST_MIN));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -644,7 +643,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("요청사항" + ErrorMessage.BADREQUEST_SIZE));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -677,7 +676,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("마감기간" + ErrorMessage.BADREQUEST_BLANK));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Test
@@ -711,7 +710,7 @@ public class BoardControllerTest extends RestDocsConfig {
             resultActions.andExpect(jsonPath("$.success").value("false"));
             resultActions.andExpect(jsonPath("$.error.message").value("마감기간은 yyyy-MM-dd HH:mm 형식이어야 합니다"));
             resultActions.andExpect(jsonPath("$.error.status").value(400));
-            resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                     
         }
 
         @Nested
@@ -746,7 +745,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.response.beverages[0].name").value("카페라떼 1잔"));
                 resultActions.andExpect(jsonPath("$.response.tip").value("2000"));
                 resultActions.andExpect(jsonPath("$.response.request").value("빨리 와주세요6"));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test()
@@ -775,7 +774,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value(String.format(ErrorMessage.NOTFOUND_FORMAT, "공고글ID", "공고글")));
                 resultActions.andExpect(jsonPath("$.error.status").value(404));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test()
@@ -804,7 +803,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("도착예정시간" + ErrorMessage.BADREQUEST_MIN));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
 
             }
 
@@ -834,7 +833,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글 작성자가 매칭 수락을 시도하는 경우 공고글을 수락 할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -864,7 +863,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글이 이미 매칭된 경우 공고글을 수락할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
         }
 
@@ -890,7 +889,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 //then
                 resultActions.andExpect(jsonPath("$.success").value("true"));
                 resultActions.andExpect(jsonPath("$.response.message").value("공고글 삭제를 완료하였습니다"));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -914,7 +913,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value(String.format(ErrorMessage.NOTFOUND_FORMAT, "공고글ID", "공고글")));
                 resultActions.andExpect(jsonPath("$.error.status").value(404));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -938,7 +937,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글의 작성자가 아닌 경우 공고글을 삭제할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -962,7 +961,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글이 이미 매칭된 경우 공고글을 삭제할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
         }
@@ -1000,7 +999,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.response.tip").value(2000));
                 resultActions.andExpect(jsonPath("$.response.request").value("빨리 와주세요6"));
                 resultActions.andExpect(jsonPath("$.response.isMatch").value(false));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1036,7 +1035,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.response.tip").value(tip)); // 수정
                 resultActions.andExpect(jsonPath("$.response.request").value("빨리 와주세요6"));
                 resultActions.andExpect(jsonPath("$.response.isMatch").value(false));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1083,7 +1082,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.response.request").value(request));
                 resultActions.andExpect(jsonPath("$.response.finishedAt").value("1698996300"));
                 resultActions.andExpect(jsonPath("$.response.isMatch").value(false));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1111,7 +1110,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value(String.format(ErrorMessage.NOTFOUND_FORMAT, "공고글ID", "공고글")));
                 resultActions.andExpect(jsonPath("$.error.status").value(404));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1139,7 +1138,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글의 작성자가 아닌 경우 공고글을 수정할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1167,7 +1166,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("공고글이 이미 매칭된 경우 공고글을 수정할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1195,7 +1194,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value(String.format(ErrorMessage.NOTFOUND_FORMAT, "가게명", "가게")));
                 resultActions.andExpect(jsonPath("$.error.status").value(404));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1221,7 +1220,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("수정할 값이 없는 경우 공고글을 수정할 수 없습니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(403));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1249,7 +1248,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("가게" + ErrorMessage.BADREQUEST_BLANK));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1277,7 +1276,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("가게" + ErrorMessage.BADREQUEST_SIZE));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1307,7 +1306,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_BLANK));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1337,7 +1336,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_SIZE));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1365,7 +1364,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("음료" + ErrorMessage.BADREQUEST_EMPTY));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1392,7 +1391,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("위치" + ErrorMessage.BADREQUEST_BLANK));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1419,7 +1418,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("위치" + ErrorMessage.BADREQUEST_SIZE));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1447,7 +1446,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("픽업팁" + ErrorMessage.BADREQUEST_MIN));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1474,7 +1473,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("요청사항" + ErrorMessage.BADREQUEST_SIZE));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
 
             @Test
@@ -1501,7 +1500,7 @@ public class BoardControllerTest extends RestDocsConfig {
                 resultActions.andExpect(jsonPath("$.success").value("false"));
                 resultActions.andExpect(jsonPath("$.error.message").value("마감기간은 yyyy-MM-dd HH:mm 형식이어야 합니다"));
                 resultActions.andExpect(jsonPath("$.error.status").value(400));
-                resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+                         
             }
         }
     }
