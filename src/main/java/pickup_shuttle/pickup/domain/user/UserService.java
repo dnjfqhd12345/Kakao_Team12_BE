@@ -75,7 +75,6 @@ public class UserService {
         customOauth2User.setAccountNum(accountNum);
         user.setBank(bankName);
         user.setAccount(accountNum);
-        user.setPhoneNumber(createUserRq.phoneNum());
         return CreateUserRp.builder()
                 .message("회원가입이 완료되었습니다")
                 .nickname(user.getNickname())

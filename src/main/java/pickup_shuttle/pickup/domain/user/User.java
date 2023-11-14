@@ -67,8 +67,6 @@ public class User {
         this.account = account;
     }
 
-    public void setPhoneNumber(String phoneNumber){this.phoneNumber = phoneNumber; }
-
     // 유저 권한 설정 메서드
     public void setRole(UserRole userRole){
         this.userRole = userRole;
