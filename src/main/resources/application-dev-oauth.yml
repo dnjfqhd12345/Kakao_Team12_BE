@@ -23,7 +23,7 @@ spring:
 jwt:
   secret: ${JWT_SECRETKEY}
   access:
-    expiration: 1800000
+    expiration: 259200000
     header: Authorization
   refresh:
     expiration: 1209600000
