@@ -13,5 +13,9 @@ public record CreateUserRq (
         String bankName,
         @NotBlank(message = "계좌번호" + ErrorMessage.BADREQUEST_BLANK)
         @Size(max = ValidValue.STRING_MAX, message = "계좌번호" + ErrorMessage.BADREQUEST_SIZE)
-        String accountNum
+        String accountNum,
+        
+        @NotBlank(message = "전화번호" + ErrorMessage.BADREQUEST_BLANK)
+        @Size(max = ValidValue.STRING_MAX, message = "전화번호" + ErrorMessage.BADREQUEST_SIZE)
+        String phoneNum
 ) {}
