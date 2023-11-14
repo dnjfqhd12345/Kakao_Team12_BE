@@ -209,8 +209,18 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new Exception404(String.format(ErrorMessage.NOTFOUND_FORMAT, "유저ID", "유저"))
         );
+        String userRole = "";
+        if(user.getUserRole() == UserRole.ADMIN){
+            userRole = "ADMIN";
+        } else if(user.getUserRole() == UserRole.USER){
+            userRole = "USER";
+        } else if(user.getUserRole() == UserRole.STUDENT){
+            userRole = "STUDENT";
+        } else
+            userRole = "GUEST";
+
         return ReadMypageRp.builder()
-                .userAuth(user.getUserRole().getValue())
+                .userAuth(userRole)
                 .nickname(user.getNickname())
                 .build();
     }
