@@ -37,7 +37,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         /*
                         원래는 Service에서 마감을 체크하고 넘겨주는게 맞지만 지정한 갯수만큼 응답으로 보내야 하기 때문에 마감을 체크하는 로직을 여기에 넣었습니다.
                          */
-                        gtDeadline())
+                        gtDeadline()
+                ,board.isMatch.eq(false))
                 .orderBy(board.boardId.desc()) //최신글부터 보여지기
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
@@ -86,7 +87,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     public Optional<List<Board>> searchlastest(int limit) {
         return  Optional.of(query
                 .selectFrom(board)
-                .where(gtDeadline())
+                .where(gtDeadline(),board.isMatch.eq(false))
                 .orderBy(board.boardId.desc())
                 .limit(limit)
                 .fetch());
