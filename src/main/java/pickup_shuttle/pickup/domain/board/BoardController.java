@@ -51,7 +51,7 @@ public class BoardController {
     }
     @DeleteMapping("/delete/{boardId}")
     public ResponseEntity<ApiUtils.ApiResult<DeleteBoardRp>> delete(@PathVariable("boardId") Long boardId,
-                                                             @Login Long userId){
+                                                                    @Login Long userId){
         DeleteBoardRp responseDTO = boardService.boardDelete(boardId, userId);
         return ResponseEntity.ok(ApiUtils.success(responseDTO));
     }
@@ -61,6 +61,12 @@ public class BoardController {
                                                                     @Login Long userId){
         boardService.checkListEmpty(requestDTO.beverages());
         UpdateBoardRp responseDTO = boardService.update(requestDTO, boardId, userId);
+        return ResponseEntity.ok(ApiUtils.success(responseDTO));
+    }
+    @GetMapping("/latest")
+    public ResponseEntity<ApiUtils.ApiResult<BoardList>> getLatestBoard
+            (@RequestParam(value = "offset",defaultValue = "3") int limit){
+        BoardList responseDTO = BoardList.builder().content(boardService.getLatestBoard(limit)).build();
         return ResponseEntity.ok(ApiUtils.success(responseDTO));
     }
 }

@@ -9,16 +9,14 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import pickup_shuttle.pickup.domain.board.Board;
-import pickup_shuttle.pickup.domain.user.User;
-import pickup_shuttle.pickup.domain.user.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static pickup_shuttle.pickup.domain.board.QBoard.board;
 import static pickup_shuttle.pickup.domain.match.QMatch.match;
 import static pickup_shuttle.pickup.domain.store.QStore.store;
-import static pickup_shuttle.pickup.domain.user.QUser.user;
 
 @Repository
 @Primary
@@ -39,7 +37,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         /*
                         원래는 Service에서 마감을 체크하고 넘겨주는게 맞지만 지정한 갯수만큼 응답으로 보내야 하기 때문에 마감을 체크하는 로직을 여기에 넣었습니다.
                          */
-                        gtDeadline(),board.isMatch.eq(false) )
+                        gtDeadline())
                 .orderBy(board.boardId.desc()) //최신글부터 보여지기
                 .limit(pageable.getPageSize() + 1)
                 .fetch();
@@ -85,46 +83,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     @Override
-    public Slice<User> searchAuthList(Long lastUserId, Pageable pageable){
-        List<User> content  = query
-                .selectFrom(user)
-                .where(
-                        gtUserId(lastUserId),
-                        user.userRole.eq(UserRole.USER)
-                )
-                .limit(pageable.getPageSize()+1)
-                .fetch();
-
-        boolean hasNext = content.size() > pageable.getPageSize();
-        if(hasNext) {
-            content.remove(pageable.getPageSize());
-        }
-        return new SliceImpl<>(content, pageable, hasNext);
-    }
-    private BooleanExpression gtUserId(Long userId){
-        return userId == null? null : user.userId.gt(userId);
-    }
-
-    @Override
-    public Slice<Board> searchRequesterList(Long userId, Long lastBoardId, Pageable pageable){
-        List<Board> content = query
+    public Optional<List<Board>> searchlastest(int limit) {
+        return  Optional.of(query
                 .selectFrom(board)
-                .join(board.store, store).fetchJoin()
-                .where(
-                        ltBoardId(lastBoardId),
-                        board.user.userId.eq(userId)
-                )
+                .where(gtDeadline())
                 .orderBy(board.boardId.desc())
-                .limit(pageable.getPageSize() + 1)
-                .fetch();
-
-        boolean hasNext = content.size() > pageable.getPageSize();
-        if(hasNext) {
-            content.remove(pageable.getPageSize());
-        }
-        return new SliceImpl<>(content, pageable, hasNext);
+                .limit(limit)
+                .fetch());
     }
 }
-
 
 

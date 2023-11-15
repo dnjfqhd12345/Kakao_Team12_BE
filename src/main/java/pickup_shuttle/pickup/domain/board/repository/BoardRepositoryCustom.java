@@ -4,7 +4,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
 import pickup_shuttle.pickup.domain.board.Board;
-import pickup_shuttle.pickup.domain.user.User;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BoardRepositoryCustom {
@@ -12,6 +14,6 @@ public interface BoardRepositoryCustom {
     Slice<Board> searchAllBySlice(Long lastBoardId, Pageable pageable);
     // picker가 수락한 공고글 조회(무한스크롤)
     Slice<Board> searchAllBySlice2(Long lastBoardId, Pageable pageable, Long userId);
-    Slice<User> searchAuthList(Long lastUserId, Pageable pageable);
-    Slice<Board> searchRequesterList(Long userId, Long lastBoardId, Pageable pageable);
+
+    Optional<List<Board>> searchlastest(int limit);
 }

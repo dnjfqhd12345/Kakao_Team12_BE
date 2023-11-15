@@ -16,8 +16,8 @@ import pickup_shuttle.pickup.domain.beverage.Beverage;
 import pickup_shuttle.pickup.domain.beverage.dto.request.BeverageRq;
 import pickup_shuttle.pickup.domain.beverage.dto.response.BeverageRp;
 import pickup_shuttle.pickup.domain.board.dto.request.AcceptBoardRq;
-import pickup_shuttle.pickup.domain.board.dto.request.UpdateBoardRq;
 import pickup_shuttle.pickup.domain.board.dto.request.CreateBoardRq;
+import pickup_shuttle.pickup.domain.board.dto.request.UpdateBoardRq;
 import pickup_shuttle.pickup.domain.board.dto.response.*;
 import pickup_shuttle.pickup.domain.board.repository.BoardRepository;
 import pickup_shuttle.pickup.domain.board.repository.BoardRepositoryCustom;
@@ -28,12 +28,9 @@ import pickup_shuttle.pickup.domain.store.Store;
 import pickup_shuttle.pickup.domain.store.StoreRepository;
 import pickup_shuttle.pickup.domain.user.User;
 import pickup_shuttle.pickup.domain.user.repository.UserRepository;
-import pickup_shuttle.pickup.utils.Utils;
-
 
 import java.lang.reflect.Field;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -265,5 +262,21 @@ public class BoardService {
         if(beverages != null && beverages.size() == 0){
             throw new Exception400("음료" + ErrorMessage.BADREQUEST_EMPTY);
         }
+    }
+
+    public List<ReadBoardListRp> getLatestBoard(int limit) {
+        List<Board> boardList=  boardRepositoryCustom.searchlastest(limit).orElseThrow(
+                () -> new Exception404(String.format(ErrorMessage.NOTFOUND_FORMAT, "공고글", "공고글"))
+        );
+        return boardList.stream().map(
+                        b -> ReadBoardListRp.builder()
+                                .boardId(b.getBoardId())
+                                .shopName(b.getStore().getName())
+                                .finishedAt(b.getFinishedAt().atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
+                                .tip(b.getTip())
+                                .isMatch(b.isMatch())
+                                .destination(b.getDestination())
+                                .build())
+                .toList();
     }
 }
