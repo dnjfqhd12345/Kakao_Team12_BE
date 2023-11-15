@@ -150,7 +150,7 @@ public class UserController {
         Slice<ReadPickerBoardListRp> responseDTO = userService.myPagePickerList(lastBoardId,size,userId);
         return ResponseEntity.ok(ApiUtils.success(new CustomPage<>(responseDTO)));
     }
-    @GetMapping("/mypage/picker/list/{boardId}")
+    @GetMapping("/mypage/picker/detail/{boardId}")
     public ResponseEntity<ApiUtils.ApiResult<ReadPickerBoardRp>> myPagePickerDetail(@PathVariable("boardId") Long boardId,
                                                                                     @Login Long userId) {
         return ResponseEntity.ok(ApiUtils.success(userService.pickerBoardDetail(boardId, userId)));
