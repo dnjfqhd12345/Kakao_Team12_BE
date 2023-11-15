@@ -106,11 +106,15 @@ public class UserService {
         }
         String userBankName = user.get().getBank();
         String userAccountNum = user.get().getAccount();
+        String userPhoneNum = user.get().getPhoneNumber();
         if(!updateUserRq.accountNum().equals(userAccountNum)){
             user.get().setAccount(updateUserRq.accountNum());
         }
         if(!updateUserRq.bankName().equals(userBankName)){
             user.get().setBank(updateUserRq.bankName());
+        }
+        if(!updateUserRq.bankName().equals(userPhoneNum)) {
+            user.get().setPhoneNumber(updateUserRq.phoneNum());
         }
         return UpdateUserRp.builder()
                 .response("회원 수정이 완료되었습니다")
