@@ -54,7 +54,8 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/users/register/input")).hasAuthority("ROLE_GUEST")
                         .requestMatchers(
                                 new AntPathRequestMatcher("/**"),
-                                new AntPathRequestMatcher("/api/**"),
+                                new AntPathRequestMatcher("/api/"),
+                                new AntPathRequestMatcher("/api"),
                                 new AntPathRequestMatcher("/api/articles"),
                                 new AntPathRequestMatcher("/api/articles?limit=3"),
                                 new AntPathRequestMatcher("/api/articles?offset=10&limit=10"),
