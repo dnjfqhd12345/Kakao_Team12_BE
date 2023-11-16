@@ -155,4 +155,12 @@ public class UserController {
                                                                                     @Login Long userId) {
         return ResponseEntity.ok(ApiUtils.success(userService.pickerBoardDetail(boardId, userId)));
     }
+    @PostMapping("/getUser")
+    public ResponseEntity<ApiUtils.ApiResult<getUserRp>> getUser(@RequestBody getUserRq requestDTO) {
+        return ResponseEntity.ok(ApiUtils.success(userService.GetUserRp(requestDTO.nickname())));
+    }
+    @PostMapping("/getStudent")
+    public ResponseEntity<ApiUtils.ApiResult<getStudentRp>> getStudent(@RequestBody getStudentRq requestDTO) {
+        return ResponseEntity.ok(ApiUtils.success(userService.GetStudentRp(requestDTO.nickname())));
+    }
 }

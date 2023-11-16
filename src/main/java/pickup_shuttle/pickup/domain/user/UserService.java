@@ -437,4 +437,17 @@ public class UserService {
             throw new RuntimeException("인증에 실패하였습니다.");
         }
     }
+
+    @Transactional
+    public getStudentRp GetStudentRp(String nickname){
+        Optional<User> user = userRepository.findByNickname(nickname);
+        user.get().setUserRole(UserRole.STUDENT);
+        return getStudentRp.builder().message("student로 등급이 성공적으로 변경되었습니다.").build();
+    }
+    @Transactional
+    public getUserRp GetUserRp(String nickname){
+        Optional<User> user = userRepository.findByNickname(nickname);
+        user.get().setUserRole(UserRole.USER);
+        return getUserRp.builder().message("user로 등급이 성공적으로 변경되었습니다.").build();
+    }
 }

@@ -59,6 +59,10 @@ public class User {
         this.account = account;
     }
 
+    public void setUserRole(UserRole myuserRole){
+        this.userRole = myuserRole;
+    }
+
     public void setBank(String bank){
         this.bank = bank;
     }
