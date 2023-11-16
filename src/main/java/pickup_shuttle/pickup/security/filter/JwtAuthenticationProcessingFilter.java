@@ -43,7 +43,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response); // if문에 있는 URI 요청이 들어오면, 다음 필터 호출
             return;  // return으로 이후 현재 필터 진행 막기 (안해주면 아래로 내려가서 계속 필터 진행시킴)
         }
-
+        System.out.println("디버깅 url: " + request.getRequestURI().toString());
         System.out.println("JWT Auth 필터 작동중");
 
         // 엑세스 토큰 검증 (관련 로직은 해당 메서드에 주석으로 기술함.
