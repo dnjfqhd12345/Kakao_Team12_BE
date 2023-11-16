@@ -75,7 +75,6 @@ public class UserService {
         customOauth2User.setAccountNum(accountNum);
         user.setBank(bankName);
         user.setAccount(accountNum);
-        user.setPhoneNumber(createUserRq.phoneNum());
         return CreateUserRp.builder()
                 .message("회원가입이 완료되었습니다")
                 .nickname(user.getNickname())
@@ -106,15 +105,11 @@ public class UserService {
         }
         String userBankName = user.get().getBank();
         String userAccountNum = user.get().getAccount();
-        String userPhoneNum = user.get().getPhoneNumber();
         if(!updateUserRq.accountNum().equals(userAccountNum)){
             user.get().setAccount(updateUserRq.accountNum());
         }
         if(!updateUserRq.bankName().equals(userBankName)){
             user.get().setBank(updateUserRq.bankName());
-        }
-        if(!updateUserRq.bankName().equals(userPhoneNum)) {
-            user.get().setPhoneNumber(updateUserRq.phoneNum());
         }
         return UpdateUserRp.builder()
                 .response("회원 수정이 완료되었습니다")
@@ -214,18 +209,8 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new Exception404(String.format(ErrorMessage.NOTFOUND_FORMAT, "유저ID", "유저"))
         );
-        String userRole = "";
-        if(user.getUserRole() == UserRole.ADMIN){
-            userRole = "ADMIN";
-        } else if(user.getUserRole() == UserRole.USER){
-            userRole = "USER";
-        } else if(user.getUserRole() == UserRole.STUDENT){
-            userRole = "STUDENT";
-        } else
-            userRole = "GUEST";
-
         return ReadMypageRp.builder()
-                .userAuth(userRole)
+                .userAuth(user.getUserRole().getValue())
                 .nickname(user.getNickname())
                 .build();
     }
@@ -235,7 +220,6 @@ public class UserService {
         Slice<User> userSlice = userRepositoryCustom.searchAuthList(lastUserId, pageRequest);
 
         List<ReadUserAuthListRp> readUserAuthListRpDTOList = userSlice.getContent().stream()
-                .filter(u -> !u.getUrl().isEmpty())
                 .map(u -> ReadUserAuthListRp.builder()
                         .userId(u.getUserId())
                         .nickname(u.getNickname())
@@ -277,10 +261,10 @@ public class UserService {
                 () -> new Exception404(String.format(ErrorMessage.NOTFOUND_FORMAT, "유저ID", "유저"))
         );
         if (user.getUserRole() == UserRole.USER) {
-           user.updateUrl("");
-           return RejectUserAuthRp.builder()
-                   .message("학생 인증이 거절되었습니다")
-                   .build();
+            user.updateUrl("");
+            return RejectUserAuthRp.builder()
+                    .message("학생 인증이 거절되었습니다")
+                    .build();
         } else throw new Exception403("일반 회원이 아닌 경우 학생 인증을 거절할 수 없습니다");
     }
 
@@ -351,7 +335,7 @@ public class UserService {
                 .build();
     }
 
-        public ReadWriterBoard myPageRequesterDetail(Long boardId) {
+    public ReadWriterBoard myPageRequesterDetail(Long boardId) {
         Board board = boardRepository.m4findByBoardId(boardId).orElseThrow(
                 () -> new Exception404(String.format(ErrorMessage.NOTFOUND_FORMAT, "공고글ID", "공고글"))
         );

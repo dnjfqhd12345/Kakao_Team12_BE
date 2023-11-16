@@ -17,11 +17,9 @@ import static pickup_shuttle.pickup.domain.store.QStore.store;
 import static pickup_shuttle.pickup.domain.user.QUser.user;
 
 public class UserRepositoryImpl implements UserRepositoryCustom{
-    private final EntityManager em;
     private final JPAQueryFactory queryFactory;
 
     public UserRepositoryImpl(EntityManager em){
-        this.em = em;
         this.queryFactory = new JPAQueryFactory(em);
     }
     @Override
@@ -30,7 +28,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .selectFrom(user)
                 .where(
                         gtUserId(lastUserId),
-                        user.userRole.eq(UserRole.USER)
+                        user.userRole.eq(UserRole.USER),
+                        user.url.ne("")
                 )
                 .limit(pageable.getPageSize()+1)
                 .fetch();
